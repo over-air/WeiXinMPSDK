@@ -32,20 +32,53 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public class AccessTokenBag : BaseContainerBag
     {
-        public string AppId { get; set; }
-        public string AppSecret { get; set; }
+        public string AppId
+        {
+            get { return _appId; }
+            set { base.SetContainerProperty(ref _appId, value); }
+        }
 
-        public DateTime AccessTokenExpireTime { get; set; }
-        public AccessTokenResult AccessTokenResult { get; set; }
+        public string AppSecret
+        {
+            get { return _appSecret; }
+            set { base.SetContainerProperty(ref _appSecret, value); }
+        }
 
+        public DateTime AccessTokenExpireTime
+        {
+            get { return _accessTokenExpireTime; }
+            set { base.SetContainerProperty(ref _accessTokenExpireTime, value); }
+        }
 
-        public JsApiTicketResult JsApiTicketResult { get; set; }
-        public DateTime JsApiTicketExpireTime { get; set; }
+        public AccessTokenResult AccessTokenResult
+        {
+            get { return _accessTokenResult; }
+            set { base.SetContainerProperty(ref _accessTokenResult, value); }
+        }
+
+        public JsApiTicketResult JsApiTicketResult
+        {
+            get { return _jsApiTicketResult; }
+            set { base.SetContainerProperty(ref _jsApiTicketResult, value); }
+        }
+
+        public DateTime JsApiTicketExpireTime
+        {
+            get { return _jsApiTicketExpireTime; }
+            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+        }
 
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
         public object Lock = new object();
+
+        private DateTime _jsApiTicketExpireTime;
+        private JsApiTicketResult _jsApiTicketResult;
+        private AccessTokenResult _accessTokenResult;
+        private DateTime _accessTokenExpireTime;
+        private string _appSecret;
+        private string _appId;
     }
 
     /// <summary>
@@ -120,7 +153,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTokenBag = ItemCollection[appId];
+            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
@@ -178,7 +211,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 throw new WeixinException("此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTokenBag = ItemCollection[appId];
+            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
             lock (accessTokenBag.Lock)
             {
                 if (getNewTicket || accessTokenBag.JsApiTicketExpireTime <= DateTime.Now)

@@ -7508,7 +7508,54 @@
             通用接口用于和微信服务器通讯，一般不涉及自有网站服务器的通讯
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetButtonGroup(System.Collections.Generic.List{Senparc.Weixin.MP.MenuFull_RootButton},Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase)">
+            <summary>
+            从rootButtonList获取buttonGroup
+            </summary>
+            <param name="rootButtonList"></param>
+            <param name="buttonGroup"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenuFromJsonResult(Senparc.Weixin.MP.GetMenuResultFull,Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase)">
+            <summary>
+            根据微信返回的Json数据得到可用的GetMenuResult结果
+            </summary>
+            <param name="resultFull"></param>
+            <param name="buttonGroupBase">ButtonGroupBase的衍生类型，可以为ButtonGroup或ConditionalButtonGroup。返回的GetMenuResult中的menu属性即为此示例。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenuConditional(System.String,Senparc.Weixin.MP.Entities.Menu.ConditionalButtonGroup,System.Int32)">
+            <summary>
+            创建个新华菜单
+            </summary>
+            <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
+            <param name="buttonData">菜单内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.TryMatch(System.String,System.String)">
+            <summary>
+            测试个性化菜单匹配结果
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="userId">可以是粉丝的OpenID，也可以是粉丝的微信号。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.DeleteMenuConditional(System.String,System.String)">
+            <summary>
+            删除菜单
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="menuId">菜单Id</param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenu(System.String,Senparc.Weixin.MP.Entities.Menu.ButtonGroup,System.Int32)">
+            <summary>
+            创建菜单
+            </summary>
+            <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
+            <param name="buttonData">菜单内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenu(System.String,System.Object,System.Int32)">
             <summary>
             创建菜单
             </summary>
@@ -7535,13 +7582,6 @@
             获取当前菜单，如果菜单不存在，将返回null
             </summary>
             <param name="accessToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenuFromJsonResult(Senparc.Weixin.MP.GetMenuResultFull)">
-            <summary>
-            根据微信返回的Json数据得到可用的GetMenuResult结果
-            </summary>
-            <param name="resultFull"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.DeleteMenu(System.String)">
@@ -7581,7 +7621,7 @@
             <summary>
             获取调用微信JS接口的临时票据
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="type"></param>
             <returns></returns>
         </member>
@@ -7649,6 +7689,78 @@
             凭证有效时间，单位：秒
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.CreateMenuConditionalResult">
+            <summary>
+            CreateMenuConditional返回的Json结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.CreateMenuConditionalResult.menuid">
+            <summary>
+            menuid
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.ConditionalButtonGroup">
+            <summary>
+            个性化菜单按钮集合
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.ConditionalButtonGroup.menuid">
+            <summary>
+            菜单Id，只在获取的时候自动填充，提交“菜单创建”请求时不需要设置
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule">
+            <summary>
+            个性化菜单匹配规则
+            matchrule共六个字段，均可为空，但不能全部为空，至少要有一个匹配信息是不为空的。 country、province、city组成地区信息，将按照country、province、city的顺序进行验证，要符合地区信息表的内容。地区信息从大到小验证，小的可以不填，即若填写了省份信息，则国家信息也必填并且匹配，城市信息可以不填。 例如 “中国 广东省 广州市”、“中国 广东省”都是合法的地域信息，而“中国 广州市”则不合法，因为填写了城市信息但没有填写省份信息。 地区信息表请点击下载。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.group_id">
+            <summary>
+            用户分组id，可通过用户分组管理接口获取
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.sex">
+            <summary>
+            性别：男（1）女（2），不填则不做匹配
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.country">
+            <summary>
+            国家信息，是用户在微信中设置的地区，具体请参考地区信息表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.province">
+            <summary>
+            省份信息，是用户在微信中设置的地区，具体请参考地区信息表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.city">
+            <summary>
+            城市信息，是用户在微信中设置的地区，具体请参考地区信息表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.client_platform_type">
+            <summary>
+            客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.CheckAllNull">
+            <summary>
+            判断是否所有属性都为null
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase">
+            <summary>
+            整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase.button">
+            <summary>
+            按钮数组，按钮个数应为1-3个
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleScancodePushButton">
             <summary>
             单个按键
@@ -7673,12 +7785,7 @@
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.ButtonGroup">
             <summary>
-            整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.ButtonGroup.button">
-            <summary>
-            按钮数组，按钮个数应为2~3个
+            （普通自定义菜单）整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleButton">
@@ -8231,7 +8338,7 @@
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">
             <summary>
-            响应回复消息
+            微信公众号响应回复消息
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.Entities.ResponseMessageBase.CreateFromRequestMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase,Senparc.Weixin.MP.ResponseMsgType)">
@@ -8365,6 +8472,11 @@
             GetMenu返回的Json结果
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.GetMenuResult.conditionalmenu">
+            <summary>
+            有个性化菜单时显示。最新的在最前。
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.WeixinUserInfoResult">
             <summary>
             用户信息
@@ -8408,6 +8520,11 @@
         <member name="P:Senparc.Weixin.MP.Entities.IRequestMessageEventBase.Event">
             <summary>
             事件类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEventBase">
+            <summary>
+            请求消息的事件推送消息基类
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.Event">
@@ -8637,9 +8754,19 @@
             事件KEY值，设置的跳转URL
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageNews">
+            <summary>
+            图文消息
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.ResponseMessageNews.Articles">
             <summary>
             文章列表，微信客户端只能输出前10条（可能未来数字会有变化，出于视觉效果考虑，建议控制在8条以内）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageTransfer_Customer_Service">
+            <summary>
+            响应回复多客服消息
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageVoice">
@@ -9570,6 +9697,11 @@
             微微嗨开发者信息
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OmitRepeatedMessageFunc">
+            <summary>
+            动态去重判断委托，仅当返回值为false时，不使用消息去重功能
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.#ctor(System.IO.Stream,Senparc.Weixin.MP.Entities.Request.PostModel,System.Int32,Senparc.Weixin.MP.AppStore.DeveloperInfo)">
             <summary>
             构造MessageHandler
@@ -9830,6 +9962,11 @@
             小视频类型请求
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.RequestMessageFactory">
+            <summary>
+            RequestMessage消息处理方法工厂类
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument,Senparc.Weixin.MP.Entities.Request.PostModel)">
             <summary>
             获取XDocument转换后的IRequestMessageBase实例。
@@ -9839,18 +9976,23 @@
         </member>
         <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.String)">
             <summary>
-            获取XDocument转换后的IRequestMessageBase实例。
+            获取XML转换后的IRequestMessageBase实例。
             如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.IO.Stream)">
             <summary>
-            获取XDocument转换后的IRequestMessageBase实例。
+            获取内容为XML的Stream转换后的IRequestMessageBase实例。
             如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
             </summary>
             <param name="stream">如Request.InputStream</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ResponseMessageFactory">
+            <summary>
+            ResponseMessageFactory消息处理方法工厂类
+            </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.ResponseMessageFactory.GetResponseEntity(System.Xml.Linq.XDocument)">
             <summary>
@@ -9864,6 +10006,13 @@
             获取XDocument转换后的IRequestMessageBase实例。
             如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.ResponseMessageFactory.ConvertEntityToXml(Senparc.Weixin.MP.Entities.ResponseMessageBase)">
+            <summary>
+            将ResponseMessage实体转为XML
+            </summary>
+            <param name="entity">ResponseMessage实体</param>
             <returns></returns>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.MP.TenPayLibV3.RequestHandler" -->
@@ -10993,6 +11142,22 @@
         <member name="T:Senparc.Weixin.MP.GetMenuResultFull">
             <summary>
             获取菜单时候的完整结构，用于接收微信服务器返回的Json信息
+            注：menu为默认菜单，conditionalmenu为个性化菜单列表。字段说明请见个性化菜单接口页的说明。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.GetMenuResultFull.conditionalmenu">
+            <summary>
+            有个性化菜单时显示。最新的在最前。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.MenuFull_ConditionalButtonGroup">
+            <summary>
+            接收菜单信息时用的“最大可能性”类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MenuFull_ConditionalButtonGroup.menuid">
+            <summary>
+            菜单Id，只在获取的时候自动填充，提交“菜单创建”请求时不需要设置
             </summary>
         </member>
         <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">

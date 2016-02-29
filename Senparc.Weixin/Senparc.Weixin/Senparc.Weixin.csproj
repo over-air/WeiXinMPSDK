@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache\ISenparcCacheStrategy.cs" />
-    <Compile Include="Cache\SenparcCache.cs" />
+    <Compile Include="Cache\ContainerCacheStragegy\IContainerCacheStragegy.cs" />
+    <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
+    <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
+    <Compile Include="Cache\CacheStrategyFactory.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Context\MessageQueue.cs" />
     <Compile Include="Context\WeixinContext.cs" />
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
+    <Compile Include="Entities\BindableBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\JsonResult\QyJsonResult.cs" />
     <Compile Include="Entities\MessageBase.cs">
@@ -75,6 +78,11 @@
     <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
+    <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
+    <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />
+    <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Threads\ThreadUtility.cs" />
     <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
@@ -91,6 +99,9 @@
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
     <Compile Include="WeixinTrace.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagrams\MessageHandler.cd" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
